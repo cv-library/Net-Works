@@ -58,6 +58,16 @@ use Net::Works::Address;
         'numeric overloading (>) on address objects works'
     );
 
+    cmp_ok(
+        $next - 8, '<', $ip,
+        'address subtraction works'
+    );
+
+    cmp_ok(
+        $next, '<', $ip + 8,
+        'address addition works'
+    );
+
     my $same_ip = Net::Works::Address->new_from_string( string => '1.2.3.4' );
 
     cmp_ok(
@@ -137,6 +147,10 @@ use Net::Works::Address;
         'ffff::a:1235',
         'next ip after ffff::a:1234 is ffff::a:1235'
     );
+
+    cmp_ok( --$next, '==', $ip, 'decremented address' );
+
+    cmp_ok( ++$prev, '==', $ip, 'incremented address' );
 }
 
 {
